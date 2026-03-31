@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     // for email_subscribers (added post-schema). Functionally correct at runtime.
     const { error } = await supabase
       .from("email_subscribers")
-      .insert({ email } as never);
+      .insert({ email, confirmed: true } as never);
 
     if (error) {
       // Unique constraint violation — already subscribed
