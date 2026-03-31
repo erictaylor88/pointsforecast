@@ -24,11 +24,14 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { data, error } = await supabase
+  // Cast needed: email_subscribers type doesn't fully satisfy supabase-js generics
+  const { data: rawData, error } = await supabase
     .from("email_subscribers")
     .select("id, email, issuer_preferences")
-    .eq("email", email)
+    .eq("email" as never, email)
     .single();
+
+  const data = rawData as { id: string; email: string; issuer_preferences: Record<string, unknown> | null } | null;
 
   if (error || !data) {
     return NextResponse.json(
@@ -91,7 +94,7 @@ export async function PUT(request: NextRequest) {
     const { error } = await supabase
       .from("email_subscribers")
       .update({ issuer_preferences: cleaned as never })
-      .eq("email", email);
+      .eq("email" as never, email);
 
     if (error) {
       console.error("Preferences update error:", error);
