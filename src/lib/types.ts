@@ -23,6 +23,12 @@ export type Database = {
         Insert: Omit<Prediction, "id">;
         Update: Partial<Omit<Prediction, "id">>;
       };
+      email_subscribers: {
+        Row: EmailSubscriber;
+        Insert: Pick<EmailSubscriber, "email"> &
+          Partial<Pick<EmailSubscriber, "issuer_preferences" | "confirmed">>;
+        Update: Partial<Omit<EmailSubscriber, "id" | "created_at">>;
+      };
     };
   };
 };
@@ -108,4 +114,12 @@ export interface PredictionWithDetails extends Prediction {
 export interface BonusWithDetails extends Bonus {
   issuer: Issuer;
   partner: Partner;
+}
+
+export interface EmailSubscriber {
+  id: string;
+  email: string;
+  issuer_preferences: Record<string, unknown> | null;
+  created_at: string;
+  confirmed: boolean;
 }
