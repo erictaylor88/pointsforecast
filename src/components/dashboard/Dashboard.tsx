@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import type {
   Issuer,
   PredictionWithDetails,
@@ -19,19 +19,53 @@ interface DashboardProps {
 
 type SortMode = "probability" | "soonest" | "recent";
 
+function parseHashIssuers(
+  hash: string,
+  issuers: Issuer[]
+): Set<string> | null {
+  if (!hash) return null;
+  const slugs = hash
+    .replace("#", "")
+    .split(",")
+    .filter(Boolean);
+  if (slugs.length === 0) return null;
+  const ids = slugs
+    .map((slug) => issuers.find((i) => i.slug === slug)?.id)
+    .filter(Boolean) as string[];
+  return ids.length > 0 ? new Set(ids) : null;
+}
+
 export function Dashboard({
   issuers,
   predictions,
   activeBonuses,
   computedAt,
 }: DashboardProps) {
-  // Start with all issuers active
-  const [activeIssuers, setActiveIssuers] = useState<Set<string>>(
-    () => new Set(issuers.map((i) => i.id))
-  );
+  // Initialize from URL hash or default to all
+  const [activeIssuers, setActiveIssuers] = useState<Set<string>>(() => {
+    if (typeof window !== "undefined") {
+      const fromHash = parseHashIssuers(window.location.hash, issuers);
+      if (fromHash) return fromHash;
+    }
+    return new Set(issuers.map((i) => i.id));
+  });
   const [sortMode, setSortMode] = useState<SortMode>("probability");
 
-  const handleToggle = (issuerId: string) => {
+  // Sync URL hash when filter changes
+  useEffect(() => {
+    const allActive = activeIssuers.size === issuers.length;
+    if (allActive) {
+      history.replaceState(null, "", window.location.pathname);
+    } else {
+      const slugs = issuers
+        .filter((i) => activeIssuers.has(i.id))
+        .map((i) => i.slug)
+        .join(",");
+      history.replaceState(null, "", `#${slugs}`);
+    }
+  }, [activeIssuers, issuers]);
+
+  const handleToggle = useCallback((issuerId: string) => {
     setActiveIssuers((prev) => {
       const next = new Set(prev);
       if (next.has(issuerId)) {
@@ -44,7 +78,7 @@ export function Dashboard({
       }
       return next;
     });
-  };
+  }, []);
 
   const filteredBonuses = useMemo(
     () => activeBonuses.filter((b) => activeIssuers.has(b.issuer_id)),
@@ -132,8 +166,21 @@ export function Dashboard({
               Forecast
             </h2>
 
-            {/* Sort control */}
-            <div className="sm:ml-auto flex items-center gap-1 bg-bg-subtle rounded-lg p-0.5">
+            {/* Sort control — dropdown on mobile, segmented on desktop */}
+            <div className="sm:ml-auto">
+              {/* Mobile dropdown */}
+              <select
+                value={sortMode}
+                onChange={(e) => setSortMode(e.target.value as SortMode)}
+                className="sm:hidden w-full h-9 px-3 rounded-lg bg-bg-subtle border border-border-default text-caption text-text-primary appearance-none cursor-pointer"
+              >
+                <option value="probability">Highest likelihood</option>
+                <option value="soonest">Most overdue</option>
+                <option value="recent">Most recent</option>
+              </select>
+
+              {/* Desktop segmented control */}
+              <div className="hidden sm:flex items-center gap-1 bg-bg-subtle rounded-lg p-0.5">
               {[
                 { key: "probability" as SortMode, label: "Highest likelihood" },
                 { key: "soonest" as SortMode, label: "Most overdue" },
@@ -154,6 +201,7 @@ export function Dashboard({
                   {label}
                 </button>
               ))}
+              </div>
             </div>
           </div>
 

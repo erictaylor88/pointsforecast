@@ -143,10 +143,14 @@ export function PredictionCard({ prediction }: PredictionCardProps) {
         </div>
       </button>
 
-      {/* Expanded reasoning panel */}
-      {expanded && (
-        <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-          <div className="bg-bg-subtle rounded-lg p-4 border border-border-subtle space-y-4">
+      {/* Expanded reasoning panel — animated */}
+      <div
+        className="grid transition-[grid-template-rows] duration-200 ease-out"
+        style={{ gridTemplateRows: expanded ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 sm:px-6 pb-5 sm:pb-6">
+            <div className="bg-bg-subtle rounded-lg p-4 border border-border-subtle space-y-4">
             <h4 className="font-display text-h3 text-text-primary">
               Why this forecast
             </h4>
@@ -238,7 +242,8 @@ export function PredictionCard({ prediction }: PredictionCardProps) {
             </div>
           </div>
         </div>
-      )}
+        </div>
+      </div>
     </div>
   );
 }
