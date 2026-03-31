@@ -12,16 +12,16 @@ function formatDate(dateStr: string): string {
   });
 }
 
-function daysRemaining(endDate: string | null): { text: string; urgent: boolean } | null {
+function daysRemaining(endDate: string | null): { text: string; urgent: boolean; critical: boolean } | null {
   if (!endDate) return null;
   const end = new Date(endDate + "T23:59:59");
   const now = new Date();
   const diff = Math.ceil((end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
   if (diff < 0) return null;
-  if (diff === 0) return { text: "Ends today", urgent: true };
-  if (diff === 1) return { text: "1 day left", urgent: true };
-  if (diff <= 3) return { text: `${diff} days left`, urgent: true };
-  return { text: `${diff} days left`, urgent: false };
+  if (diff === 0) return { text: "Ends today", urgent: true, critical: true };
+  if (diff === 1) return { text: "1 day left", urgent: true, critical: true };
+  if (diff <= 3) return { text: `${diff} days left`, urgent: true, critical: false };
+  return { text: `${diff} days left`, urgent: false, critical: false };
 }
 
 export function LiveBonusCard({ bonus }: LiveBonusCardProps) {
@@ -54,12 +54,18 @@ export function LiveBonusCard({ bonus }: LiveBonusCardProps) {
         <div className="flex items-center gap-1.5 mt-1 flex-wrap">
           {remaining && (
             <span
-              className={`text-caption font-medium ${
+              className={`text-caption font-medium inline-flex items-center gap-1.5 ${
                 remaining.urgent
                   ? "text-signal-medium"
                   : "text-text-secondary"
               }`}
             >
+              {remaining.critical && (
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-pulse-urgency absolute inline-flex h-full w-full rounded-full bg-signal-medium opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-signal-medium" />
+                </span>
+              )}
               {remaining.text}
             </span>
           )}
