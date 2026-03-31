@@ -45,7 +45,7 @@ export function IssuerFilter({
               inline-flex items-center h-9 px-4 rounded-full
               text-label uppercase tracking-wider
               border transition-all duration-150
-              shrink-0 cursor-pointer
+              shrink-0 cursor-pointer focus-ring
               ${isActive ? `${colors.active} border-transparent` : colors.inactive}
             `}
             aria-pressed={isActive}
