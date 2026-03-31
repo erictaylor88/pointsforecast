@@ -6,6 +6,7 @@ type SubmitState = "idle" | "submitting" | "success" | "error";
 
 export function EmailSignup() {
   const [email, setEmail] = useState("");
+  const [subscribedEmail, setSubscribedEmail] = useState("");
   const [state, setState] = useState<SubmitState>("idle");
   const [message, setMessage] = useState("");
 
@@ -29,6 +30,7 @@ export function EmailSignup() {
         if (res.ok) {
           setState("success");
           setMessage(data.message || "You're in!");
+          setSubscribedEmail(email.trim().toLowerCase());
           setEmail("");
         } else {
           setState("error");
@@ -53,22 +55,34 @@ export function EmailSignup() {
       </p>
 
       {state === "success" ? (
-        <div className="flex items-center gap-2 h-11 px-4 rounded-lg bg-signal-high-bg text-signal-high text-body-medium transition-all duration-300">
-          <svg
-            className="w-5 h-5 flex-shrink-0"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4.5 12.75l6 6 9-13.5"
-            />
-          </svg>
-          <span>{message}</span>
+        <div>
+          <div className="flex items-center gap-2 h-11 px-4 rounded-lg bg-signal-high-bg text-signal-high text-body-medium transition-all duration-300">
+            <svg
+              className="w-5 h-5 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4.5 12.75l6 6 9-13.5"
+              />
+            </svg>
+            <span>{message}</span>
+          </div>
+          {subscribedEmail && (
+            <p className="text-caption text-text-tertiary mt-2">
+              <a
+                href={`/preferences?email=${encodeURIComponent(subscribedEmail)}`}
+                className="text-text-secondary hover:text-text-primary underline underline-offset-2 transition-colors"
+              >
+                Customize which alerts you receive →
+              </a>
+            </p>
+          )}
         </div>
       ) : (
         <div>
