@@ -168,14 +168,16 @@ export function Dashboard({
         {/* Forecast Section */}
         <section>
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-5 sm:mb-6">
-            <h2 className="font-display text-h1 text-text-primary">
-              Forecast
-            </h2>
-            {filteredPredictions.length > 0 && (
-              <span className="inline-flex items-center h-5 px-2 rounded bg-bg-subtle text-text-secondary text-caption font-medium">
-                {filteredPredictions.length}
-              </span>
-            )}
+            <div className="flex items-center gap-3">
+              <h2 className="font-display text-h1 text-text-primary">
+                Forecast
+              </h2>
+              {filteredPredictions.length > 0 && (
+                <span className="inline-flex items-center h-5 px-2 rounded bg-bg-subtle text-text-secondary text-caption font-medium">
+                  {filteredPredictions.length}
+                </span>
+              )}
+            </div>
 
             {/* Sort control — dropdown on mobile, segmented on desktop */}
             <div className="sm:ml-auto">
