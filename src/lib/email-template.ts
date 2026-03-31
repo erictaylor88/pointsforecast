@@ -181,6 +181,8 @@ export function buildAlertEmail({
                 Predictions are statistical estimates based on historical data, not guarantees.
               </p>
               <p style="font-size: 12px; color: #9B9B9B; margin: 8px 0 0 0;">
+                <a href="${SITE_URL}/preferences?email=${encodeURIComponent(subscriberEmail)}" style="color: #9B9B9B; text-decoration: underline;">Manage Preferences</a>
+                <span style="margin: 0 6px;">·</span>
                 <a href="${SITE_URL}/api/unsubscribe?email=${encodeURIComponent(subscriberEmail)}" style="color: #9B9B9B; text-decoration: underline;">Unsubscribe</a>
               </p>
             </td>
