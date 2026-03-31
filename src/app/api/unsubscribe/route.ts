@@ -57,7 +57,7 @@ function unsubscribePage(message: string): string {
   <div class="card">
     <h1>Unsubscribe</h1>
     <p>${message}</p>
-    <a href="https://pointsforecast.vercel.app">Back to Dashboard</a>
+    <a href="https://pointsforecast.com">Back to Dashboard</a>
   </div>
 </body>
 </html>`;
