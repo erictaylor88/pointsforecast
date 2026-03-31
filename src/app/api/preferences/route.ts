@@ -91,11 +91,10 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error } = await (supabase
-      .from("email_subscribers") as any)
-      .update({ issuer_preferences: cleaned })
-      .eq("email", email);
+      .from("email_subscribers") as ReturnType<typeof supabase.from>)
+      .update({ issuer_preferences: cleaned } as never)
+      .eq("email" as never, email);
 
     if (error) {
       console.error("Preferences update error:", error);
