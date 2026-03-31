@@ -44,3 +44,10 @@
     padding-right: 32px;
   }
 }
+
+@layer components {
+  /* Consistent focus ring for keyboard navigation */
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-chase focus-visible:ring-offset-2;
+  }
+}
