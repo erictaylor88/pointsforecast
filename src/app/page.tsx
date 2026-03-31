@@ -4,6 +4,42 @@ import { getIssuers, getPredictions, getActiveBonuses } from "@/lib/data";
 // Revalidate every 60 seconds — predictions update daily but bonuses could change
 export const revalidate = 60;
 
+function JsonLd() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        name: "PointsForecast",
+        url: "https://pointsforecast.com",
+        description:
+          "Data-driven predictions for credit card transfer bonuses. See which Chase, Amex, and Capital One transfer bonuses are likely coming next.",
+      },
+      {
+        "@type": "WebApplication",
+        name: "PointsForecast",
+        url: "https://pointsforecast.com",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Any",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        description:
+          "Predict upcoming credit card transfer bonuses using historical data analysis. Covers Chase Ultimate Rewards, Amex Membership Rewards, and Capital One Miles.",
+      },
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
+  );
+}
+
 export default async function Home() {
   const [issuers, predictions, activeBonuses] = await Promise.all([
     getIssuers(),
@@ -21,6 +57,7 @@ export default async function Home() {
   if (!hasData) {
     return (
       <main className="min-h-screen flex items-center justify-center bg-bg-primary">
+        <JsonLd />
         <div className="text-center max-w-lg px-6">
           <h1 className="font-display text-display text-text-primary mb-3">
             PointsForecast
@@ -49,11 +86,14 @@ export default async function Home() {
   }
 
   return (
-    <Dashboard
-      issuers={issuers}
-      predictions={predictions}
-      activeBonuses={activeBonuses}
-      computedAt={computedAt}
-    />
+    <>
+      <JsonLd />
+      <Dashboard
+        issuers={issuers}
+        predictions={predictions}
+        activeBonuses={activeBonuses}
+        computedAt={computedAt}
+      />
+    </>
   );
 }
