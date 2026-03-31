@@ -87,7 +87,7 @@ export function ProbabilityGauge({
         y={cy - 1}
         textAnchor="middle"
         dominantBaseline="central"
-        fontFamily='"JetBrains Mono", monospace'
+        style={{ fontFamily: "var(--font-mono), monospace" }}
         fontWeight="500"
         fontSize={numSize}
         letterSpacing="-0.02em"
@@ -101,7 +101,7 @@ export function ProbabilityGauge({
         y={cy + numSize * 0.6}
         textAnchor="middle"
         dominantBaseline="central"
-        fontFamily='"Inter", system-ui, sans-serif'
+        style={{ fontFamily: "var(--font-body), system-ui, sans-serif" }}
         fontWeight="400"
         fontSize={pctSize}
         fill="#9B9B9B"
