@@ -24,15 +24,15 @@ export function SeasonalityHeatmap({
   const max = Math.max(...monthlyFrequency, 1);
 
   return (
-    <div className="flex gap-1">
+    <div className="inline-flex gap-1" style={{ minWidth: "276px" }}>
       {monthlyFrequency.map((freq, i) => (
         <div key={i} className="flex flex-col items-center gap-0.5">
           <div
-            className={`w-5 h-5 rounded-sm ${i === currentMonth ? "ring-1 ring-text-primary ring-offset-1" : ""}`}
+            className={`w-[20px] h-[20px] rounded-sm ${i === currentMonth ? "ring-1 ring-text-primary ring-offset-1" : ""}`}
             style={{ backgroundColor: getHeatColor(freq, max) }}
             title={`${MONTHS[i]}: ${freq} bonus${freq !== 1 ? "es" : ""}`}
           />
-          <span className="text-[9px] text-text-tertiary leading-none">
+          <span className="text-[9px] text-text-tertiary leading-none select-none">
             {MONTHS[i][0]}
           </span>
         </div>

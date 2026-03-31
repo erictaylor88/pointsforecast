@@ -122,11 +122,11 @@ export function Dashboard({
       <header className="w-full border-b border-border-subtle bg-bg-surface/80 backdrop-blur-sm">
         <div className="max-w-content mx-auto px-4 sm:px-8 lg:px-10 py-5 sm:py-6">
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <h1 className="font-display text-display text-text-primary">
                 PointsForecast
               </h1>
-              <p className="text-body text-text-secondary mt-1">
+              <p className="text-body text-text-secondary mt-0.5 hidden sm:block">
                 Know when to transfer — and when to wait.
               </p>
             </div>
@@ -159,12 +159,22 @@ export function Dashboard({
           </section>
         )}
 
+        {/* Subtle divider between sections */}
+        {hasActiveBonuses && (
+          <div className="border-t border-border-subtle mb-8 sm:mb-10" />
+        )}
+
         {/* Forecast Section */}
         <section>
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-5 sm:mb-6">
             <h2 className="font-display text-h1 text-text-primary">
               Forecast
             </h2>
+            {filteredPredictions.length > 0 && (
+              <span className="inline-flex items-center h-5 px-2 rounded bg-bg-subtle text-text-secondary text-caption font-medium">
+                {filteredPredictions.length}
+              </span>
+            )}
 
             {/* Sort control — dropdown on mobile, segmented on desktop */}
             <div className="sm:ml-auto">
@@ -212,12 +222,17 @@ export function Dashboard({
               ))}
             </div>
           ) : (
-            <div className="text-center py-16">
+            <div className="text-center py-16 px-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-bg-subtle mb-4">
+                <svg className="w-6 h-6 text-text-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
+                </svg>
+              </div>
               <p className="text-body-medium text-text-secondary">
                 No forecasts match your filters.
               </p>
               <p className="text-caption text-text-tertiary mt-1">
-                Try selecting an issuer above.
+                Try selecting a different issuer above.
               </p>
             </div>
           )}

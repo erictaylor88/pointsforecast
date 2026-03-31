@@ -12,31 +12,32 @@ function formatDate(dateStr: string): string {
   });
 }
 
-function daysRemaining(endDate: string | null): string | null {
+function daysRemaining(endDate: string | null): { text: string; urgent: boolean } | null {
   if (!endDate) return null;
   const end = new Date(endDate + "T23:59:59");
   const now = new Date();
   const diff = Math.ceil((end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
   if (diff < 0) return null;
-  if (diff === 0) return "Ends today";
-  if (diff === 1) return "1 day left";
-  return `${diff} days left`;
+  if (diff === 0) return { text: "Ends today", urgent: true };
+  if (diff === 1) return { text: "1 day left", urgent: true };
+  if (diff <= 3) return { text: `${diff} days left`, urgent: true };
+  return { text: `${diff} days left`, urgent: false };
 }
 
 export function LiveBonusCard({ bonus }: LiveBonusCardProps) {
   const remaining = daysRemaining(bonus.end_date);
 
   return (
-    <div className="relative flex items-center gap-4 p-4 sm:p-5 bg-bg-surface border border-border-default rounded-card shadow-card overflow-hidden">
+    <div className="relative flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-bg-surface border border-border-default rounded-card shadow-card overflow-hidden">
       {/* Purple left border */}
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-signal-active" />
 
-      {/* Bonus percentage */}
-      <div className="flex-shrink-0 text-center">
+      {/* Bonus percentage — inline display */}
+      <div className="flex-shrink-0 flex items-baseline gap-0.5">
         <span className="font-mono text-data text-signal-active leading-none">
           +{bonus.bonus_percentage}
         </span>
-        <span className="block text-caption text-text-tertiary mt-0.5">%</span>
+        <span className="font-mono text-[14px] text-signal-active">%</span>
       </div>
 
       {/* Details */}
@@ -50,9 +51,17 @@ export function LiveBonusCard({ bonus }: LiveBonusCardProps) {
             shortName={bonus.issuer.short_name}
           />
         </div>
-        <div className="flex items-center gap-2 mt-1">
+        <div className="flex items-center gap-1.5 mt-1 flex-wrap">
           {remaining && (
-            <span className="text-caption text-text-secondary">{remaining}</span>
+            <span
+              className={`text-caption font-medium ${
+                remaining.urgent
+                  ? "text-signal-medium"
+                  : "text-text-secondary"
+              }`}
+            >
+              {remaining.text}
+            </span>
           )}
           {bonus.end_date && (
             <span className="text-caption text-text-tertiary">
@@ -66,7 +75,7 @@ export function LiveBonusCard({ bonus }: LiveBonusCardProps) {
       </div>
 
       {/* LIVE badge */}
-      <span className="inline-flex items-center h-6 px-2.5 rounded-md bg-signal-active-bg text-signal-active text-caption uppercase tracking-wider shrink-0">
+      <span className="inline-flex items-center h-6 px-2.5 rounded-md bg-signal-active-bg text-signal-active text-caption uppercase tracking-wider shrink-0 font-medium">
         Live
       </span>
     </div>
