@@ -24,9 +24,9 @@ export function SeasonalityHeatmap({
   const max = Math.max(...monthlyFrequency, 1);
 
   return (
-    <div className="inline-flex gap-1" style={{ minWidth: "276px" }}>
+    <div className="inline-flex gap-1 py-1 px-0.5" style={{ minWidth: "276px" }}>
       {monthlyFrequency.map((freq, i) => (
-        <div key={i} className="flex flex-col items-center gap-0.5">
+        <div key={i} className="flex flex-col items-center gap-1.5">
           <div
             className={`w-[20px] h-[20px] rounded-sm ${i === currentMonth ? "ring-1 ring-text-primary ring-offset-1" : ""}`}
             style={{ backgroundColor: getHeatColor(freq, max) }}
