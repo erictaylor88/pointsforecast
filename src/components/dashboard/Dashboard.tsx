@@ -143,7 +143,7 @@ export function Dashboard({
       <main className="max-w-content mx-auto px-4 sm:px-8 lg:px-10 py-8 sm:py-10">
         {/* Live Bonuses Section */}
         {hasActiveBonuses && (
-          <section className="mb-10 sm:mb-12">
+          <section className="mb-10 sm:mb-12" aria-live="polite">
             <div className="flex items-center gap-3 mb-4 sm:mb-5">
               <h2 className="font-display text-h1 text-text-primary">
                 Active Bonuses
@@ -183,7 +183,8 @@ export function Dashboard({
               <select
                 value={sortMode}
                 onChange={(e) => setSortMode(e.target.value as SortMode)}
-                className="sm:hidden w-full h-9 px-3 rounded-lg bg-bg-subtle border border-border-default text-caption text-text-primary appearance-none cursor-pointer"
+                aria-label="Sort predictions"
+                className="sm:hidden w-full h-9 px-3 rounded-lg bg-bg-subtle border border-border-default text-caption text-text-primary appearance-none cursor-pointer focus-ring"
               >
                 <option value="probability">Highest likelihood</option>
                 <option value="soonest">Most overdue</option>
@@ -201,7 +202,7 @@ export function Dashboard({
                   key={key}
                   onClick={() => setSortMode(key)}
                   className={`
-                    px-3 py-1.5 rounded-md text-caption transition-all duration-150 cursor-pointer
+                    px-3 py-1.5 rounded-md text-caption transition-all duration-150 cursor-pointer focus-ring
                     ${
                       sortMode === key
                         ? "bg-bg-surface text-text-primary shadow-sm"
@@ -225,7 +226,7 @@ export function Dashboard({
           ) : (
             <div className="text-center py-16 px-4">
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-bg-subtle mb-4">
-                <svg className="w-6 h-6 text-text-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <svg className="w-6 h-6 text-text-tertiary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z" />
                 </svg>
               </div>
