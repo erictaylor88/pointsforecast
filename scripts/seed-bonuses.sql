@@ -305,3 +305,42 @@ INSERT INTO bonuses (issuer_id, partner_id, bonus_percentage, start_date, end_da
 -- Capital One → Qantas
 INSERT INTO bonuses (issuer_id, partner_id, bonus_percentage, start_date, end_date, is_targeted, source, notes) VALUES
 ('d1cd54cd-90db-4b7d-b793-bfef30e60cba', 'a3032b22-2095-40ab-a750-94297a249ef1', 20, '2025-05-01', '2025-05-31', false, 'Miles to Memories', NULL);
+
+-- ============================================================
+-- GAP FILL — Cross-referenced from Frequent Miler (2024-2026)
+-- Added 2026-03-30
+-- ============================================================
+
+-- Amex gaps
+INSERT INTO bonuses (issuer_id, partner_id, bonus_percentage, start_date, end_date, is_targeted, source, notes) VALUES
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'e3cd986c-4f19-4fbb-9d4d-f459535aa2a4', 40, '2024-12-01', '2024-12-31', false, 'Frequent Miler', NULL),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'e3cd986c-4f19-4fbb-9d4d-f459535aa2a4', 40, '2025-11-21', '2025-12-31', true, 'Frequent Miler', 'Targeted'),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'd0b70734-5f71-4577-9317-71f02ae7aa6e', 25, '2024-12-06', '2024-12-31', false, 'Frequent Miler', NULL),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'a3c69059-ed06-477b-bc0a-2d3a509199c9', 15, '2024-11-01', '2024-11-30', false, 'Frequent Miler', NULL),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'e9d9fdfb-99f5-4e71-8e5f-1b88f80f111b', 15, '2024-11-01', '2024-11-30', false, 'Frequent Miler', NULL),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'bc7a3f30-a20d-43fc-9e6e-3d644fab7bf3', 20, '2024-10-10', '2024-11-10', false, 'Frequent Miler', NULL),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'c1ca9298-7962-4849-b81f-fbc7b0309163', 20, '2025-04-01', '2025-04-30', false, 'Frequent Miler', NULL),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', '23b9f84f-d5ec-45ad-a223-a8256a4a9fc6', 20, '2025-04-01', '2025-04-30', true, 'Frequent Miler', 'Targeted'),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'e9d9fdfb-99f5-4e71-8e5f-1b88f80f111b', 15, '2025-07-07', '2025-07-31', false, 'Frequent Miler', NULL),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'e9d9fdfb-99f5-4e71-8e5f-1b88f80f111b', 15, '2025-11-03', '2025-11-30', true, 'Frequent Miler', 'Targeted'),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', '633c3b22-9179-4d6d-89ed-d04e837040b6', 30, '2025-06-01', '2025-07-15', false, 'Frequent Miler', 'Avios program bonus'),
+('471cfb8b-8021-49cd-9383-9f9c3f56e014', 'de1a87ac-98eb-40dd-8c76-c5926bae1e66', 30, '2025-06-01', '2025-07-15', false, 'Frequent Miler', 'Avios program bonus');
+
+-- Chase gaps
+INSERT INTO bonuses (issuer_id, partner_id, bonus_percentage, start_date, end_date, is_targeted, source, notes) VALUES
+('18ff3431-a496-446d-8c9f-426a57d1394b', 'e3cd986c-4f19-4fbb-9d4d-f459535aa2a4', 40, '2024-10-15', '2024-11-30', false, 'Frequent Miler', NULL),
+('18ff3431-a496-446d-8c9f-426a57d1394b', 'bc7a3f30-a20d-43fc-9e6e-3d644fab7bf3', 20, '2024-12-04', '2025-01-15', false, 'Frequent Miler', NULL),
+('18ff3431-a496-446d-8c9f-426a57d1394b', 'c4428ebe-6e5e-4c9f-9c0d-6421810adff9', 20, '2024-12-04', '2025-01-15', false, 'Frequent Miler', NULL),
+('18ff3431-a496-446d-8c9f-426a57d1394b', 'e3cd986c-4f19-4fbb-9d4d-f459535aa2a4', 30, '2025-02-03', '2025-02-17', false, 'Frequent Miler', NULL),
+('18ff3431-a496-446d-8c9f-426a57d1394b', '91e86a3d-cdd4-4ed1-84df-08d6ac13204e', 20, '2025-03-01', '2025-03-31', false, 'Frequent Miler', 'Avios'),
+('18ff3431-a496-446d-8c9f-426a57d1394b', '633c3b22-9179-4d6d-89ed-d04e837040b6', 20, '2025-03-01', '2025-03-31', false, 'Frequent Miler', 'Avios'),
+('18ff3431-a496-446d-8c9f-426a57d1394b', 'de1a87ac-98eb-40dd-8c76-c5926bae1e66', 20, '2025-03-01', '2025-03-31', false, 'Frequent Miler', 'Avios'),
+('18ff3431-a496-446d-8c9f-426a57d1394b', 'bc7a3f30-a20d-43fc-9e6e-3d644fab7bf3', 25, '2025-05-01', '2025-05-31', false, 'Frequent Miler', NULL),
+('18ff3431-a496-446d-8c9f-426a57d1394b', 'e3cd986c-4f19-4fbb-9d4d-f459535aa2a4', 25, '2025-05-01', '2025-06-15', false, 'Frequent Miler', NULL),
+('18ff3431-a496-446d-8c9f-426a57d1394b', 'c4428ebe-6e5e-4c9f-9c0d-6421810adff9', 20, '2025-06-05', '2025-07-17', false, 'Frequent Miler', '20% base, 30% for cardholders');
+
+-- Capital One gaps
+INSERT INTO bonuses (issuer_id, partner_id, bonus_percentage, start_date, end_date, is_targeted, source, notes) VALUES
+('d1cd54cd-90db-4b7d-b793-bfef30e60cba', '91e86a3d-cdd4-4ed1-84df-08d6ac13204e', 20, '2024-11-01', '2024-12-01', false, 'Frequent Miler', NULL),
+('d1cd54cd-90db-4b7d-b793-bfef30e60cba', 'e9d9fdfb-99f5-4e71-8e5f-1b88f80f111b', 15, '2026-01-12', '2026-02-11', false, 'Frequent Miler', NULL),
+('d1cd54cd-90db-4b7d-b793-bfef30e60cba', 'e3cd986c-4f19-4fbb-9d4d-f459535aa2a4', 30, '2025-09-02', '2025-10-01', false, 'Frequent Miler', 'Virgin Red');
