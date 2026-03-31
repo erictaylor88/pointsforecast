@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
 
+const SITE_URL = "https://pointsforecast.com";
+const SITE_NAME = "PointsForecast";
+const SITE_DESCRIPTION =
+  "See which credit card transfer bonuses are likely coming next. Data-driven predictions for Chase, Amex, and Capital One transfer partners.";
+
 const dmSans = localFont({
   src: "../../public/fonts/dm-sans-latin-variable.woff2",
   variable: "--font-display",
@@ -34,9 +39,39 @@ const jetbrainsMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "PointsForecast — Predict Credit Card Transfer Bonuses",
-  description:
-    "See which credit card transfer bonuses are likely coming next. Data-driven predictions for Chase, Amex, and Capital One transfer partners.",
+  title: {
+    default: `${SITE_NAME} — Predict Credit Card Transfer Bonuses`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: `${SITE_NAME} — Predict Credit Card Transfer Bonuses`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Predict Credit Card Transfer Bonuses`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
