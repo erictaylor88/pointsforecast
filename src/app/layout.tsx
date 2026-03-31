@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/react";
 import "@/styles/globals.css";
 
 const SITE_URL = "https://pointsforecast.com";
@@ -84,7 +85,10 @@ export default function RootLayout({
       lang="en"
       className={`${dmSans.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
