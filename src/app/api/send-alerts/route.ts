@@ -99,14 +99,14 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Fetch confirmed subscribers
+    // Fetch confirmed subscribers with preferences
     // Cast needed: email_subscribers type doesn't fully satisfy supabase-js generics
     const { data: rawSubscribers, error: subErr } = await supabase
       .from("email_subscribers")
-      .select("id, email")
+      .select("id, email, issuer_preferences")
       .eq("confirmed" as never, true);
 
-    const subscribers = rawSubscribers as { id: string; email: string }[] | null;
+    const subscribers = rawSubscribers as { id: string; email: string; issuer_preferences: { issuers?: string[]; partners?: string[] } | null }[] | null;
 
     if (subErr) {
       console.error("Error fetching subscribers:", subErr);
@@ -133,9 +133,34 @@ export async function GET(request: NextRequest) {
       const batch = subscribers.slice(i, i + BATCH_SIZE);
 
       const sends = batch.map(async (subscriber) => {
+        // Filter predictions and bonuses by subscriber preferences
+        const prefs = subscriber.issuer_preferences;
+        const issuerFilter = prefs?.issuers?.length ? new Set(prefs.issuers) : null;
+        const partnerFilter = prefs?.partners?.length ? new Set(prefs.partners) : null;
+
+        const subPredictions = allPredictions.filter((p) => {
+          if (issuerFilter && !issuerFilter.has(p.issuer.slug)) return false;
+          if (partnerFilter && !partnerFilter.has(p.partner.slug)) return false;
+          return true;
+        });
+
+        const subBonuses = activeBonuses.filter((b) => {
+          if (issuerFilter && !issuerFilter.has(b.issuer.slug)) return false;
+          if (partnerFilter && !partnerFilter.has(b.partner.slug)) return false;
+          return true;
+        });
+
+        // Skip if nothing relevant for this subscriber
+        const relevantPredictions = subPredictions.filter(
+          (p) => !p.reasoning.active_bonus && p.probability_30d > MIN_PROBABILITY_THRESHOLD
+        );
+        if (relevantPredictions.length === 0 && subBonuses.length === 0) {
+          return true; // Not a failure, just skipped
+        }
+
         const { subject, html } = buildAlertEmail({
-          predictions: allPredictions,
-          activeBonuses,
+          predictions: subPredictions,
+          activeBonuses: subBonuses,
           subscriberEmail: subscriber.email,
         });
 
