@@ -1,6 +1,6 @@
 import type { PredictionWithDetails, BonusWithDetails } from "./types";
 
-const SITE_URL = "https://pointsforecast.vercel.app";
+const SITE_URL = "https://pointsforecast.com";
 
 function confidenceColor(confidence: string): string {
   switch (confidence) {
