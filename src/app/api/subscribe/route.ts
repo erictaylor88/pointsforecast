@@ -23,6 +23,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Cast needed: manual Database type doesn't fully satisfy supabase-js generics
+    // for email_subscribers (added post-schema). Functionally correct at runtime.
     const { error } = await supabase
       .from("email_subscribers")
       .insert({ email } as never);
