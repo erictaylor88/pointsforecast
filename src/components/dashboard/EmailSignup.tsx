@@ -60,6 +60,7 @@ export function EmailSignup() {
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth={2.5}
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -71,7 +72,7 @@ export function EmailSignup() {
         </div>
       ) : (
         <div>
-          <div className="flex gap-2">
+          <form onSubmit={handleSubmit} className="flex gap-2">
             <input
               type="email"
               value={email}
@@ -81,11 +82,12 @@ export function EmailSignup() {
               }}
               placeholder="you@email.com"
               required
+              aria-label="Email address for prediction alerts"
               className="flex-1 h-11 px-4 bg-bg-surface border border-border-default rounded-lg text-body text-text-primary placeholder:text-text-tertiary outline-none focus:border-chase focus:ring-1 focus:ring-chase transition-colors"
               disabled={state === "submitting"}
             />
             <button
-              onClick={handleSubmit}
+              type="submit"
               disabled={state === "submitting" || !email.trim()}
               className="h-11 px-5 bg-chase text-white rounded-lg font-display text-[14px] font-medium whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-chase/90 transition-colors"
             >
@@ -95,6 +97,7 @@ export function EmailSignup() {
                     className="w-4 h-4 animate-spin"
                     viewBox="0 0 24 24"
                     fill="none"
+                    aria-hidden="true"
                   >
                     <circle
                       className="opacity-25"
@@ -116,7 +119,7 @@ export function EmailSignup() {
                 "Get Alerts"
               )}
             </button>
-          </div>
+          </form>
           {state === "error" && message && (
             <p className="text-caption text-signal-medium mt-2">{message}</p>
           )}
