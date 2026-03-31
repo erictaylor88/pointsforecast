@@ -104,6 +104,15 @@ const config: Config = {
         card: "0 1px 3px rgba(0,0,0,0.04)",
         "card-hover": "0 4px 12px rgba(0,0,0,0.06)",
       },
+      keyframes: {
+        "pulse-urgency": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+      },
+      animation: {
+        "pulse-urgency": "pulse-urgency 2s ease-in-out infinite",
+      },
     },
   },
   plugins: [],
