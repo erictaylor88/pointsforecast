@@ -15,6 +15,7 @@ const issuerBorderColors: Record<string, string> = {
   "chase-ur": "border-l-chase",
   "amex-mr": "border-l-amex",
   "capital-one": "border-l-capital-one",
+  "citi-typ": "border-l-citi",
 };
 
 function formatDays(days: number): string {

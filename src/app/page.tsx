@@ -76,6 +76,9 @@ export default async function Home() {
             <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-capital-one-light text-capital-one text-label uppercase">
               Capital One
             </span>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-citi-light text-citi text-label uppercase">
+              Citi
+            </span>
           </div>
           <p className="text-caption text-text-tertiary mt-10">
             Connecting to data source — set environment variables to go live.

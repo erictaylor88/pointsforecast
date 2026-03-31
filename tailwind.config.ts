@@ -36,6 +36,10 @@ const config: Config = {
           DEFAULT: "#D03027",
           light: "#FBEAEA",
         },
+        citi: {
+          DEFAULT: "#003B70",
+          light: "#E5EBF5",
+        },
         signal: {
           high: "#16A34A",
           "high-bg": "#DCFCE7",

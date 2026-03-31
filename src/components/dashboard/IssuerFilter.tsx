@@ -21,6 +21,10 @@ const issuerColors: Record<string, { active: string; inactive: string }> = {
     active: "bg-capital-one text-white",
     inactive: "border-border-default bg-bg-surface text-text-secondary hover:border-capital-one hover:text-capital-one",
   },
+  "citi-typ": {
+    active: "bg-citi text-white",
+    inactive: "border-border-default bg-bg-surface text-text-secondary hover:border-citi hover:text-citi",
+  },
 };
 
 export function IssuerFilter({

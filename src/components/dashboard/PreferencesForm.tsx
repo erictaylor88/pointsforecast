@@ -37,6 +37,10 @@ const issuerColors: Record<string, { active: string; inactive: string }> = {
     active: "bg-capital-one text-white",
     inactive: "border-border-default bg-bg-surface text-text-secondary hover:border-capital-one/40",
   },
+  "citi-typ": {
+    active: "bg-citi text-white",
+    inactive: "border-border-default bg-bg-surface text-text-secondary hover:border-citi/40",
+  },
 };
 
 export function PreferencesForm({ email }: { email: string }) {

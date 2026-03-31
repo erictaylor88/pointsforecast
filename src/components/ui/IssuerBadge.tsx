@@ -7,6 +7,7 @@ const issuerStyles: Record<string, string> = {
   "chase-ur": "bg-chase-light text-chase",
   "amex-mr": "bg-amex-light text-amex",
   "capital-one": "bg-capital-one-light text-capital-one",
+  "citi-typ": "bg-citi-light text-citi",
 };
 
 export function IssuerBadge({ slug, shortName }: IssuerBadgeProps) {
