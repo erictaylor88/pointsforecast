@@ -9,6 +9,7 @@ import type {
 import { IssuerFilter } from "@/components/dashboard/IssuerFilter";
 import { LiveBonusCard } from "@/components/dashboard/LiveBonusCard";
 import { PredictionCard } from "@/components/predictions/PredictionCard";
+import { EmailSignup } from "@/components/dashboard/EmailSignup";
 
 interface DashboardProps {
   issuers: Issuer[];
@@ -239,8 +240,15 @@ export function Dashboard({
         </section>
       </main>
 
+      {/* Email Signup */}
+      <section className="border-t border-border-subtle mt-12">
+        <div className="max-w-content mx-auto px-4 sm:px-8 lg:px-10 py-8 sm:py-12">
+          <EmailSignup />
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="border-t border-border-subtle mt-12">
+      <footer className="border-t border-border-subtle">
         <div className="max-w-content mx-auto px-4 sm:px-8 lg:px-10 py-6 sm:py-8">
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-caption text-text-tertiary">
             <span>
