@@ -1,7 +1,7 @@
 -- PointsForecast Historical Bonus Seed Data
--- Sources: The Points Guy, Frequent Miler, Miles to Memories, Travel on Points
--- Scope: V1 issuers (Chase, Amex, Capital One) — Airline partners only
--- Date: 2026-03-30
+-- Sources: The Points Guy, Frequent Miler, Miles to Memories, Travel on Points, One Mile at a Time, LoyaltyLobby, 10xTravel
+-- Scope: V1 issuers (Chase, Amex, Capital One, Citi) — Airline partners only
+-- Date: 2026-04-01
 --
 -- Issuer IDs:
 --   Chase:       18ff3431-a496-446d-8c9f-426a57d1394b
@@ -25,6 +25,7 @@
 --   singapore:       b2e9c433-84fb-411e-b2b1-e0d5845c3b22
 --   turkish:         3a9c04a4-5907-41d6-9f74-5ab0e78ac9b4
 --   virgin-atlantic: e3cd986c-4f19-4fbb-9d4d-f459535aa2a4
+--   japan-airlines:  42466444-f79c-4576-8155-79a49c485d62
 
 -- Clear existing bonus data (fresh seed)
 DELETE FROM bonuses;
@@ -344,3 +345,14 @@ INSERT INTO bonuses (issuer_id, partner_id, bonus_percentage, start_date, end_da
 ('d1cd54cd-90db-4b7d-b793-bfef30e60cba', '91e86a3d-cdd4-4ed1-84df-08d6ac13204e', 20, '2024-11-01', '2024-12-01', false, 'Frequent Miler', NULL),
 ('d1cd54cd-90db-4b7d-b793-bfef30e60cba', 'e9d9fdfb-99f5-4e71-8e5f-1b88f80f111b', 15, '2026-01-12', '2026-02-11', false, 'Frequent Miler', NULL),
 ('d1cd54cd-90db-4b7d-b793-bfef30e60cba', 'e3cd986c-4f19-4fbb-9d4d-f459535aa2a4', 30, '2025-09-02', '2025-10-01', false, 'Frequent Miler', 'Virgin Red');
+
+-- Capital One → Japan Airlines (JAL is a new partner added Sep 2025)
+-- JAL partner: 42466444-f79c-4576-8155-79a49c485d62
+INSERT INTO bonuses (issuer_id, partner_id, bonus_percentage, start_date, end_date, is_targeted, source, notes) VALUES
+('d1cd54cd-90db-4b7d-b793-bfef30e60cba', '42466444-f79c-4576-8155-79a49c485d62', 30, '2025-09-15', '2025-10-15', false, 'One Mile at a Time, NerdWallet', 'Launch bonus when JAL was added as Capital One transfer partner'),
+('d1cd54cd-90db-4b7d-b793-bfef30e60cba', '42466444-f79c-4576-8155-79a49c485d62', 30, '2026-02-01', '2026-02-28', false, 'Frequent Miler, AwardWallet', '30% bonus brings ratio close to 1:1 (1000 → 975 JAL miles)'),
+('d1cd54cd-90db-4b7d-b793-bfef30e60cba', '42466444-f79c-4576-8155-79a49c485d62', 30, '2026-04-01', '2026-04-30', false, 'One Mile at a Time, LoyaltyLobby, 10xTravel', 'Third Capital One → JAL bonus in 6 months');
+
+-- April 2026 new active bonuses
+INSERT INTO bonuses (issuer_id, partner_id, bonus_percentage, start_date, end_date, is_targeted, source, notes) VALUES
+('18ff3431-a496-446d-8c9f-426a57d1394b', 'c4428ebe-6e5e-4c9f-9c0d-6421810adff9', 20, '2026-04-01', '2026-05-01', false, '10xTravel, The Points Guy', 'Chase → Aeroplan 20% transfer bonus through May 1');
